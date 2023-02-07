@@ -1,11 +1,17 @@
-const { Note } = require("../../models/noteSchema");
+const { Note, joiNoteSchema } = require("../../models/noteSchema");
 const createError = require("http-errors");
 
 const updateNoteById = async (req, res, next) => {
   const { noteId } = req.params;
-  //   const { color } = req.body;
 
   try {
+    const { error } = joiNoteSchema.validate(req.body);
+
+    if (error) {
+      error.status = 400;
+      throw error;
+    }
+
     const data = await Note.findByIdAndUpdate(noteId, req.body, {
       new: true,
     });
