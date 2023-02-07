@@ -1,11 +1,11 @@
 const getNotes = require("./getNotes");
 const addNote = require("./addNote");
-// const updateNote = require("./updateNote");
-// const deleteNote = require("./deleteNote");
+const deleteNote = require("./deleteNote");
+const updateNoteById = require("./updateNoteById");
 
 module.exports = {
   getNotes,
   addNote,
-  // updateNote,
-  // deleteNote,
+  deleteNote,
+  updateNoteById,
 };

@@ -4,12 +4,12 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/", ctrl.getNotes);
+router.get("/", auth, ctrl.getNotes);
 
 router.post("/", auth, ctrl.addNote);
 
-// router.delete("/:notetId", auth, ctrl.deleteNote);
+router.delete("/:noteId", auth, ctrl.deleteNote);
 
-// router.put("/:notetId", auth, ctrl.updateNote);
+router.put("/:noteId", auth, ctrl.updateNoteById);
 
 module.exports = router;

@@ -4,15 +4,13 @@ const noteSchema = Schema(
   {
     name: {
       type: String,
-      required: [true, "Set name for note"],
-      minlength: 1,
-      maxlength: 30,
     },
     todos: {
-      type: String,
+      type: Array,
     },
     color: {
       type: String,
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,

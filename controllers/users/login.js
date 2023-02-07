@@ -28,7 +28,7 @@ const login = async (req, res, next) => {
       token: token,
       user: {
         email: email,
-        subscription: user.subscription,
+        name: user.name,
       },
     });
   } catch (error) {
