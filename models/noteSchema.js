@@ -34,10 +34,20 @@ const joiTodosSchema = Joi.object({
   todos: Joi.array().required(),
 });
 
+const joiColorSchema = Joi.object({
+  color: Joi.string().required(),
+});
+
+const joiNameSchema = Joi.object({
+  name: Joi.string().required(),
+});
+
 const Note = model("note", noteSchema);
 
 module.exports = {
   Note,
   joiNoteSchema,
   joiTodosSchema,
+  joiColorSchema,
+  joiNameSchema,
 };

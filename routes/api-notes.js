@@ -14,4 +14,8 @@ router.put("/:noteId", auth, ctrl.updateNoteById);
 
 router.put("/:noteId/todos", auth, ctrl.updateNoteTodos);
 
+router.put("/:noteId/color", auth, ctrl.updateNoteColor);
+
+router.put("/:noteId/name", auth, ctrl.updateNoteName);
+
 module.exports = router;
