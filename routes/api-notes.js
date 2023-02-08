@@ -12,4 +12,6 @@ router.delete("/:noteId", auth, ctrl.deleteNote);
 
 router.put("/:noteId", auth, ctrl.updateNoteById);
 
+router.put("/:noteId/todos", auth, ctrl.updateNoteTodos);
+
 module.exports = router;

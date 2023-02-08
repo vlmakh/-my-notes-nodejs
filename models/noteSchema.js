@@ -30,9 +30,14 @@ const joiNoteSchema = Joi.object({
   color: Joi.string().required(),
 });
 
+const joiTodosSchema = Joi.object({
+  todos: Joi.array().required(),
+});
+
 const Note = model("note", noteSchema);
 
 module.exports = {
   Note,
   joiNoteSchema,
+  joiTodosSchema,
 };
