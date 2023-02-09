@@ -10,8 +10,6 @@ router.post("/", auth, ctrl.addNote);
 
 router.delete("/:noteId", auth, ctrl.deleteNote);
 
-router.put("/:noteId", auth, ctrl.updateNoteById);
-
 router.put("/:noteId/todos", auth, ctrl.updateNoteTodos);
 
 router.put("/:noteId/color", auth, ctrl.updateNoteColor);
