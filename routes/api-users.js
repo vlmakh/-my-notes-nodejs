@@ -12,6 +12,8 @@ router.get("/logout", auth, ctrl.logout);
 
 router.get("/current", auth, ctrl.getCurrent);
 
-router.patch("/:userId", auth, ctrl.updateSubscription);
+router.get("/verify/:verificationToken", ctrl.verifyBeforeSignup);
+
+router.post("/verify", ctrl.verifyRepeat);
 
 module.exports = router;

@@ -15,10 +15,19 @@ const login = async (req, res, next) => {
 
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new Unauthorized("Unknown email");
+    }
+
     const passCheck = bcrypt.compareSync(password, user.password);
 
-    if (!user || !passCheck) {
-      throw new Unauthorized("Email or password is wrong");
+    if (!passCheck) {
+      throw new Unauthorized("Password is wrong");
+    }
+
+    if (!user.verify) {
+      throw new Unauthorized("Email is not verified yet");
     }
 
     const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1d" });
