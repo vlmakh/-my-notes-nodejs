@@ -16,7 +16,6 @@ const verifyBeforeSignup = async (req, res, next) => {
     }
 
     await User.findByIdAndUpdate(user._id, { verify: true });
-    // await User.findByIdAndUpdate(user._id, { verificationToken: null });
 
     const data = {
       message: `Your email was confirmed successfully, now you can login`,

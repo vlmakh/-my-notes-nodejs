@@ -14,6 +14,4 @@ router.get("/current", auth, ctrl.getCurrent);
 
 router.get("/verify/:verificationToken", ctrl.verifyBeforeSignup);
 
-router.post("/verify", ctrl.verifyRepeat);
-
 module.exports = router;

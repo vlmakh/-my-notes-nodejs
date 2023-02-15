@@ -22,10 +22,10 @@ const register = async (req, res, next) => {
     const verificationToken = uid();
 
     await sendEmail({
-      to: "vlmakh@gmail.com", // `${email}`
+      to: `${email}`,
       from: "vlmakh@meta.ua",
-      subject: "Register new user in MyNotes",
-      html: `<a  href="http://localhost:3000/my-notes-react/verify/${verificationToken}" target="_blank">To confirm ${email} please follow this link</a>`,
+      subject: "Confirm registration in MyNotes",
+      html: `<a href="http://vlmakh.github.io/my-notes-react/verify/${verificationToken}" target="_blank">To confirm ${email} please follow this link</a>`,
     });
 
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
