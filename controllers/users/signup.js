@@ -1,6 +1,8 @@
 const { User, joiRegSchema } = require("../../models/userSchema");
 const bcrypt = require("bcryptjs");
 const { Conflict } = require("http-errors");
+const { uid } = require("uid");
+const sendEmail = require("../../helpers/sendEmail");
 
 const register = async (req, res, next) => {
   try {
@@ -16,8 +18,23 @@ const register = async (req, res, next) => {
     if (user) {
       throw new Conflict(`Email: ${email} in use`);
     }
+
+    const verificationToken = uid();
+
+    await sendEmail({
+      to: `${email}`,
+      from: "vlmakh@meta.ua",
+      subject: "Confirm registration in MyNotes",
+      html: `<a href="http://vlmakh.github.io/my-notes-react/verify/${verificationToken}" target="_blank">To confirm ${email} please follow this link</a>`,
+    });
+
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    const data = await User.create({ name, email, password: hashPassword });
+    const data = await User.create({
+      name,
+      email,
+      password: hashPassword,
+      verificationToken,
+    });
 
     res.status(201).json(data);
   } catch (error) {
