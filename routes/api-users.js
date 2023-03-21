@@ -16,4 +16,8 @@ router.get("/verify/:verificationToken", ctrl.verifyBeforeSignup);
 
 router.post("/verify", ctrl.verifyRepeat);
 
+router.post("/updateName", auth, ctrl.updateName);
+
+router.post("/updatePass", auth, ctrl.updatePass);
+
 module.exports = router;
