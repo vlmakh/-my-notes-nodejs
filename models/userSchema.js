@@ -6,7 +6,7 @@ const userSchema = Schema(
     name: {
       type: String,
       required: [true, "Set name for contact"],
-      minlength: 1,
+      minlength: 4,
       maxlength: 30,
     },
     email: {
@@ -45,10 +45,22 @@ const joiLoginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const joiUpdatePassSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+});
+
+const joiUpdateNameSchema = Joi.object({
+  email: Joi.string().email().required(),
+  name: Joi.string().min(4).required(),
+});
+
 const User = model("user", userSchema);
 
 module.exports = {
   User,
   joiRegSchema,
   joiLoginSchema,
+  joiUpdatePassSchema,
+  joiUpdateNameSchema,
 };

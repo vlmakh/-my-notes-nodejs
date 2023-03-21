@@ -1,5 +1,5 @@
 const { Note, joiNameSchema } = require("../../models/noteSchema");
-const createError = require("http-errors");
+const { NotFound } = require("http-errors");
 
 const updateNoteName = async (req, res, next) => {
   const { noteId } = req.params;
@@ -23,8 +23,9 @@ const updateNoteName = async (req, res, next) => {
     );
 
     if (!data) {
-      throw createError(404, `Note id:${noteId} was not found`);
+      throw NotFound(`Note id:${noteId} was not found`);
     }
+
     res.status(200).json(data);
   } catch (error) {
     next(error);
