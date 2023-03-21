@@ -1,10 +1,17 @@
-const { User } = require("../../models/userSchema");
+const { User, joiUpdateNameSchema } = require("../../models/userSchema");
 const { NotFound } = require("http-errors");
 
 const updateName = async (req, res, next) => {
   const { name, email } = req.body;
 
   try {
+    const { error } = joiUpdateNameSchema.validate(req.body);
+
+    if (error) {
+      error.status = 400;
+      throw error;
+    }
+
     const user = await User.findOneAndUpdate(
       { email },
       { name },
