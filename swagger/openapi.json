@@ -1,0 +1,322 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "My Notes",
+    "description": "Web app for private notes",
+    "contact": {
+      "email": "vlmakh@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://my-notes-nodejs.onrender.com/api/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "notes",
+      "description": "Operations about notes"
+    },
+    {
+      "name": "users",
+      "description": "Operations about user"
+    }
+  ],
+  "paths": {
+    "/notes": {
+      "get": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Get user notes",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Add new note",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Note"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Note"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notes/:noteId": {
+      "delete": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Delete note",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/notes/:noteId/todos": {
+      "put": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Update todos",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/notes/:noteId/color": {
+      "put": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Update note color",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/notes/:noteId/name": {
+      "put": {
+        "tags": [
+          "notes"
+        ],
+        "description": "Update note name",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "description": "User register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "description": "Logs user into the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "description": "Logs out current user session",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "description": "Check current user",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/users/verify/:verificationToken": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "",
+        "description": "Check verification token to confirm registration",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Verification has already been passed"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "",
+        "description": "Email verification after user registration",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/updateName": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "",
+        "description": "Update user name",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/users/updatePass": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "",
+        "description": "Update user password",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": ""
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          }
+        }
+      },
+      "Note": {
+        "required": [
+          "name",
+          "todos",
+          "color"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "todos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
