@@ -33,6 +33,9 @@
         "responses": {
           "200": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       },
@@ -61,6 +64,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       }
@@ -74,6 +80,9 @@
         "responses": {
           "200": {
             "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -87,6 +96,9 @@
         "responses": {
           "200": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       }
@@ -100,6 +112,9 @@
         "responses": {
           "200": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       }
@@ -113,6 +128,9 @@
         "responses": {
           "200": {
             "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
           }
         }
       }
@@ -135,7 +153,31 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Email conflict"
           }
         }
       }
@@ -146,6 +188,24 @@
           "users"
         ],
         "description": "Logs user into the system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -154,11 +214,19 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "name": {
+                    "token": {
                       "type": "string"
                     },
-                    "password": {
-                      "type": "string"
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        }
+                      }
                     }
                   }
                 }
@@ -166,7 +234,10 @@
             }
           },
           "400": {
-            "description": "Invalid username/password supplied"
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -178,8 +249,8 @@
         ],
         "description": "Logs out current user session",
         "responses": {
-          "200": {
-            "description": "Successful operation"
+          "204": {
+            "description": "No content"
           }
         }
       }
@@ -228,11 +299,11 @@
           "200": {
             "description": "Successful operation"
           },
-          "400": {
-            "description": "Invalid username supplied"
-          },
           "404": {
             "description": "User not found"
+          },
+          "409": {
+            "description": "User is already verified"
           }
         }
       }
@@ -244,6 +315,20 @@
         ],
         "summary": "",
         "description": "Update user name",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation"
@@ -261,6 +346,20 @@
         ],
         "summary": "",
         "description": "Update user password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation"
