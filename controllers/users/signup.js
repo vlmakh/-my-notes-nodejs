@@ -36,7 +36,11 @@ const register = async (req, res, next) => {
       verificationToken,
     });
 
-    res.status(201).json(data);
+    res.status(201).json({
+      message: "User registered successfully, verification email sent",
+      name: data.name,
+      email: data.email,
+    });
   } catch (error) {
     next(error);
   }
